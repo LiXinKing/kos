@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo dd iflag=dsync oflag=dsync if=./boot_new.bin of=/dev/sdd seek=1
+umount /media/AE6B-FF79
+
