@@ -96,9 +96,9 @@ void start_armboot (void)
 //	GPBCON_REG=0x00001111;
 //	GPBDAT_REG=0xff;
 //	while(1);
-
-	printf("IN?\n");
 	uart_init();
+	printf("IN?\n");
+	
 	system_initexception();
 	sched_init();
 	mem_init(0x20a00000,0x24000000);

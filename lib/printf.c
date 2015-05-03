@@ -5,8 +5,8 @@
 extern void putc(unsigned char c);
 extern unsigned char getc(void);
 
-#define	OUTBUFSIZE	1024
-#define	INBUFSIZE	1024
+#define	OUTBUFSIZE	256
+#define	INBUFSIZE	256
 
 
 static char g_pcOutBuf[OUTBUFSIZE];
@@ -24,7 +24,13 @@ int printf(const char *fmt, ...)
 	va_end(args);
 	for (i = 0; i < strlen(g_pcOutBuf); i++)
 	{
-		putc(g_pcOutBuf[i]);
+		if(g_pcOutBuf[i]!='\n')
+			putc(g_pcOutBuf[i]);
+		else{
+			putc(g_pcOutBuf[i]);
+			putc('\r');
+		}
+			
 	}
 	return len;
 }

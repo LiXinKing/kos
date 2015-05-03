@@ -83,7 +83,7 @@ void timer_init(unsigned long utimer,unsigned long uprescaler,unsigned long udiv
 }
 void timer_request(void)
 {
-	printf("######Timer test####\n");
+	printf("\n######Timer test####\n");
 //	printf("start\n");
 //	printf("s3ff\n");
 	// 禁止所有timer

@@ -1,0 +1,463 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+___strtok           0x4               lib/string.o
+stack_start         0x1000            kernel/sched.o
+stack_ex            0x1000            kernel/sched.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00000000                . = 0x0
+                0x00000000                . = ALIGN (0x4)
+
+.text           0x00000000     0x542c
+ boot/start.o()
+ .text          0x00000000      0x840 boot/start.o
+                0x00000000                _start
+                0x00000044                _bss_start
+                0x00000048                _bss_end
+                0x00000254                copy_from_nand
+                0x00000420                data_abort
+                0x000004e0                irq
+                0x00000700                arm_cache_flush
+                0x00000720                disable_l2cache
+                0x00000740                enable_l2cache
+                0x00000760                set_l2cache_auxctrl_cycle
+                0x00000780                set_l2cache_auxctrl
+                0x000007a8                after_test
+ .data          0x00000840        0x0 boot/start.o
+ .bss           0x00000840        0x0 boot/start.o
+ .ARM.attributes
+                0x00000840       0x1b boot/start.o
+ *(.text)
+ *fill*         0x0000085b        0x1 00
+ .text          0x0000085c      0x284 boot/lowlevel_init.o
+                0x00000860                lowlevel_init
+ .text          0x00000ae0      0x3d0 boot/cpu_init.o
+                0x00000ae0                mem_ctrl_asm_init
+ .text          0x00000eb0       0x7c boot/movi.o
+                0x00000eb0                movi_bl2_copy
+ .text          0x00000f2c      0x1d4 boot/nand_cp.o
+                0x00000f2c                copy_uboot_to_ram
+ .text          0x00001100      0x1e4 init/main.o
+                0x00001100                enable_interrupts
+                0x00001110                init3
+                0x00001130                init2
+                0x00001134                init
+                0x00001154                start_armboot
+                0x000012bc                put_to
+ .text          0x000012e4      0x378 kernel/fork.o
+                0x000012e4                get_taskmm
+                0x000012fc                find_empty_process
+                0x00001410                copy_mem
+                0x00001478                copy_process
+                0x000015b8                verify_area
+ .text          0x0000165c      0x328 kernel/interrupt.o
+                0x0000165c                system_initexception
+                0x000016bc                intc_init
+                0x0000171c                intc_setvectaddr
+                0x00001780                intc_clearvectaddr
+                0x000017a8                intc_enable
+                0x00001868                intc_disable
+                0x00001928                intc_getvicirqstatus
+ .text          0x00001984      0x3f4 kernel/sched.o
+                0x00001984                sys_getpid
+                0x00001998                sys_getppid
+                0x000019b0                sys_getuid
+                0x000019c4                sys_geteuid
+                0x000019d8                sys_getgid
+                0x000019ec                sys_getegid
+                0x00001a00                sys_nice
+                0x00001a24                ttest
+                0x00001a34                wake_up
+                0x00001aa4                schedule
+                0x00001c0c                sys_pause
+                0x00001c3c                interruptible_sleep_on
+                0x00001cd8                sched_init
+                0x00001cdc                sleep_on
+ .text          0x00001d78      0x11c kernel/sys_call.o
+                0x00001d78                move_to_usr
+                0x00001dbc                switch_to
+                0x00001e3c                sys_fork
+ .text          0x00001e94      0x1d4 kernel/timer.o
+                0x00001e94                pwm_stopall
+                0x00001ea8                timer_init
+                0x00001f38                timer_request
+                0x00001fa4                irs_timer
+ .text          0x00002068      0x3bc kernel/trap.o
+                0x00002068                exceptionfiq
+                0x0000207c                exceptiondataabort
+                0x000021a8                exceptionprefetch
+                0x0000231c                exceptionsoftwareinter
+                0x00002330                exceptionundefins
+                0x00002344                exceptionirq
+ .text          0x00002424       0x98 kernel/uart.o
+                0x00002424                uart_init
+                0x0000247c                putc
+                0x0000249c                getc
+ .text          0x000024bc       0x8c kernel/mktime.o
+                0x000024bc                kernel_mktime
+ .text          0x00002548       0x18 kernel/panic.o
+                0x00002548                panic
+ .text          0x00002560      0x114 kernel/sys.o
+                0x00002560                sys_ftime
+                0x00002568                sys_break
+                0x00002570                sys_ptrace
+                0x00002578                sys_stty
+                0x00002580                sys_gtty
+                0x00002588                sys_rename
+                0x00002590                sys_prof
+                0x00002598                sys_setregid
+                0x000025a0                sys_setgid
+                0x000025a8                sys_acct
+                0x000025b0                sys_phys
+                0x000025b8                sys_lock
+                0x000025c0                sys_mpx
+                0x000025c8                sys_ulimit
+                0x000025d0                sys_time
+                0x000025d8                sys_setreuid
+                0x000025e0                sys_setuid
+                0x000025e8                sys_stime
+                0x000025f0                sys_times
+                0x000025f8                sys_brk
+                0x00002600                sys_setpgid
+                0x00002608                sys_getpgrp
+                0x00002610                sys_setsid
+                0x00002618                sys_getgroups
+                0x00002620                sys_setgroups
+                0x00002628                in_group_p
+                0x00002630                sys_uname
+                0x00002638                sys_sethostname
+                0x00002640                sys_getrlimit
+                0x00002648                sys_setrlimit
+                0x00002650                sys_getrusage
+                0x00002658                sys_gettimeofday
+                0x00002660                sys_settimeofday
+                0x00002668                adjust_clock
+                0x0000266c                sys_umask
+ .text          0x00002674      0xa04 mm/memory.o
+                0x00002674                create_map
+                0x00002678                copy_page
+                0x000026bc                mem_init
+                0x000027fc                free_page
+                0x0000286c                free_page_tables
+                0x00002b00                get_empty_page
+                0x00002b3c                un_wp_page
+                0x00002c2c                write_verify
+                0x00002c88                do_page_fault
+                0x00002ce0                do_no_table
+                0x00002d7c                do_no_page
+                0x00002dbc                copy_page_tables
+ .text          0x00003078       0xc0 mm/swap.o
+                0x00003078                get_free_page
+ *fill*         0x00003138        0x8 00
+ .text          0x00003140      0x130 lib/div64.o
+                0x00003140                __do_div64
+ .text          0x00003270        0x0 lib/ctype.o
+ .text          0x00003270       0xd0 lib/printf.o
+                0x00003270                scanf
+                0x000032cc                printf
+ .text          0x00003340      0xbd4 lib/string.o
+                0x00003340                strnicmp
+                0x00003488                strcpy
+                0x000034a4                strncpy
+                0x00003508                strcat
+                0x00003544                strncat
+                0x00003608                strcmp
+                0x00003640                strncmp
+                0x0000370c                strchr
+                0x00003740                strrchr
+                0x000037d4                strlen
+                0x000037fc                strnlen
+                0x00003878                strspn
+                0x000038e8                strpbrk
+                0x0000394c                strtok
+                0x00003a54                strsep
+                0x00003adc                memset
+                0x00003b34                bcopy
+                0x00003ba0                memcpy
+                0x00003c0c                memmove
+                0x00003ce4                memcmp
+                0x00003d68                memscan
+                0x00003dd8                strstr
+                0x00003ec0                memchr
+ .text          0x00003f14     0x1518 lib/vsprintf.o
+                0x00003f14                simple_strtoul
+                0x00004038                simple_strtol
+                0x00004060                simple_strtoull
+                0x000041ac                simple_strtoll
+                0x00004594                vsscanf
+                0x00004ce8                sscanf
+                0x00004d08                vsprintf
+
+.glue_7         0x0000542c        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0000542c        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0000542c        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0000542c        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+                0x0000542c                . = ALIGN (0x4)
+
+.rodata         0x0000542c      0x1bc
+ *(.rodata)
+ .rodata        0x0000542c      0x18c kernel/trap.o
+ .rodata        0x000055b8       0x30 kernel/mktime.o
+
+.rodata.str1.4  0x000055e8      0xaec
+ .rodata.str1.4
+                0x000055e8       0x7c init/main.o
+                                 0x80 (size before relaxing)
+ .rodata.str1.4
+                0x00005664       0x5d kernel/fork.o
+                                 0x60 (size before relaxing)
+ *fill*         0x000056c1        0x3 00
+ .rodata.str1.4
+                0x000056c4       0x99 kernel/sched.o
+                                 0x9c (size before relaxing)
+ *fill*         0x0000575d        0x3 00
+ .rodata.str1.4
+                0x00005760       0x3c kernel/timer.o
+ .rodata.str1.4
+                0x0000579c      0x619 kernel/trap.o
+                                0x634 (size before relaxing)
+ *fill*         0x00005db5        0x3 00
+ .rodata.str1.4
+                0x00005db8       0x13 kernel/panic.o
+                                 0x14 (size before relaxing)
+ *fill*         0x00005dcb        0x1 00
+ .rodata.str1.4
+                0x00005dcc      0x287 mm/memory.o
+                                0x288 (size before relaxing)
+ *fill*         0x00006053        0x1 00
+ .rodata.str1.4
+                0x00006054       0x28 mm/swap.o
+ .rodata.str1.4
+                0x0000607c       0x58 lib/vsprintf.o
+                0x000060d4                . = ALIGN (0x4)
+
+.data           0x000060d4     0x1204
+ *(.data)
+ .data          0x000060d4        0x0 boot/lowlevel_init.o
+ .data          0x000060d4        0x0 boot/cpu_init.o
+ .data          0x000060d4        0x0 boot/movi.o
+ .data          0x000060d4        0x0 boot/nand_cp.o
+ .data          0x000060d4        0x0 init/main.o
+ .data          0x000060d4        0x0 kernel/fork.o
+ .data          0x000060d4        0x0 kernel/interrupt.o
+ .data          0x000060d4     0x1104 kernel/sched.o
+                0x000060d4                current
+                0x000060d8                task
+                0x000061d8                init_task
+ .data          0x000071d8        0x0 kernel/sys_call.o
+ .data          0x000071d8        0x0 kernel/timer.o
+ .data          0x000071d8        0x0 kernel/trap.o
+ .data          0x000071d8        0x0 kernel/uart.o
+ .data          0x000071d8        0x0 kernel/mktime.o
+ .data          0x000071d8        0x0 kernel/panic.o
+ .data          0x000071d8        0x0 kernel/sys.o
+ .data          0x000071d8        0x0 mm/memory.o
+ .data          0x000071d8        0x0 mm/swap.o
+ .data          0x000071d8        0x0 lib/div64.o
+ .data          0x000071d8      0x100 lib/ctype.o
+                0x000071d8                _ctype
+ .data          0x000072d8        0x0 lib/printf.o
+ .data          0x000072d8        0x0 lib/string.o
+ .data          0x000072d8        0x0 lib/vsprintf.o
+                0x000072d8                . = ALIGN (0x4)
+
+.got
+ *(.got)
+                0x000072d8                __u_boot_cmd_start = .
+
+.u_boot_cmd
+ *(.u_boot_cmd)
+                0x000072d8                __u_boot_cmd_end = .
+                0x000072d8                . = ALIGN (0x4)
+
+.mmudata        0x00008000    0x14000
+ *(.mmudata)
+ .mmudata       0x00008000    0x14000 boot/lowlevel_init.o
+                0x00008000                mmu_table
+                0x0000c000                mmu_table_1
+                0x0001c000                . = ALIGN (0x4)
+                0x0001c000                __bss_start = .
+
+.bss            0x0001c000     0x611c
+ *(.bss)
+ .bss           0x0001c000        0x0 boot/lowlevel_init.o
+ .bss           0x0001c000        0x0 boot/cpu_init.o
+ .bss           0x0001c000        0x0 boot/movi.o
+ .bss           0x0001c000        0x0 boot/nand_cp.o
+ .bss           0x0001c000        0x0 init/main.o
+ .bss           0x0001c000        0x4 kernel/fork.o
+                0x0001c000                last_pid
+ .bss           0x0001c004        0x0 kernel/interrupt.o
+ .bss           0x0001c004        0xc kernel/sched.o
+                0x0001c004                jiffies
+                0x0001c008                startup_time
+                0x0001c00c                jiffies_offset
+ .bss           0x0001c010        0x0 kernel/sys_call.o
+ .bss           0x0001c010        0x4 kernel/timer.o
+                0x0001c010                counter
+ .bss           0x0001c014        0x0 kernel/trap.o
+ .bss           0x0001c014        0x0 kernel/uart.o
+ .bss           0x0001c014        0x0 kernel/mktime.o
+ .bss           0x0001c014        0x0 kernel/panic.o
+ .bss           0x0001c014        0x0 kernel/sys.o
+ .bss           0x0001c014     0x3f04 mm/memory.o
+                0x0001c014                HIGH_MEMORY
+                0x0001c018                mem_map
+ .bss           0x0001ff18        0x0 mm/swap.o
+ .bss           0x0001ff18        0x0 lib/div64.o
+ .bss           0x0001ff18        0x0 lib/ctype.o
+ .bss           0x0001ff18      0x200 lib/printf.o
+ .bss           0x00020118        0x0 lib/string.o
+ .bss           0x00020118        0x0 lib/vsprintf.o
+ COMMON         0x00020118     0x2000 kernel/sched.o
+                0x00020118                stack_start
+                0x00021118                stack_ex
+ COMMON         0x00022118        0x4 lib/string.o
+                0x00022118                ___strtok
+                0x0002211c                _end = .
+Address of section .text set to 0x0
+LOAD boot/start.o
+LOAD boot/lowlevel_init.o
+LOAD boot/cpu_init.o
+LOAD boot/movi.o
+LOAD boot/nand_cp.o
+LOAD init/main.o
+LOAD kernel/fork.o
+LOAD kernel/interrupt.o
+LOAD kernel/sched.o
+LOAD kernel/sys_call.o
+LOAD kernel/timer.o
+LOAD kernel/trap.o
+LOAD kernel/uart.o
+LOAD kernel/mktime.o
+LOAD kernel/panic.o
+LOAD kernel/sys.o
+LOAD mm/memory.o
+LOAD mm/swap.o
+LOAD lib/div64.o
+LOAD lib/ctype.o
+LOAD lib/printf.o
+LOAD lib/string.o
+LOAD lib/vsprintf.o
+OUTPUT(boot.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x27
+ .ARM.attributes
+                0x00000000       0x1b boot/lowlevel_init.o
+ .ARM.attributes
+                0x0000001b       0x1b boot/cpu_init.o
+ .ARM.attributes
+                0x00000036       0x2b boot/movi.o
+ .ARM.attributes
+                0x00000061       0x2b boot/nand_cp.o
+ .ARM.attributes
+                0x0000008c       0x2b init/main.o
+ .ARM.attributes
+                0x000000b7       0x2b kernel/fork.o
+ .ARM.attributes
+                0x000000e2       0x2b kernel/interrupt.o
+ .ARM.attributes
+                0x0000010d       0x2b kernel/sched.o
+ .ARM.attributes
+                0x00000138       0x1b kernel/sys_call.o
+ .ARM.attributes
+                0x00000153       0x2b kernel/timer.o
+ .ARM.attributes
+                0x0000017e       0x2b kernel/trap.o
+ .ARM.attributes
+                0x000001a9       0x2b kernel/uart.o
+ .ARM.attributes
+                0x000001d4       0x2b kernel/mktime.o
+ .ARM.attributes
+                0x000001ff       0x2b kernel/panic.o
+ .ARM.attributes
+                0x0000022a       0x2b kernel/sys.o
+ .ARM.attributes
+                0x00000255       0x2b mm/memory.o
+ .ARM.attributes
+                0x00000280       0x2b mm/swap.o
+ .ARM.attributes
+                0x000002ab       0x1b lib/div64.o
+ .ARM.attributes
+                0x000002c6       0x2b lib/ctype.o
+ .ARM.attributes
+                0x000002f1       0x2b lib/printf.o
+ .ARM.attributes
+                0x0000031c       0x2b lib/string.o
+ .ARM.attributes
+                0x00000347       0x2b lib/vsprintf.o
+
+.comment        0x00000000      0x2f4
+ .comment       0x00000000       0x2a boot/movi.o
+ .comment       0x0000002a       0x2a boot/nand_cp.o
+ .comment       0x00000054       0x2a init/main.o
+ .comment       0x0000007e       0x2a kernel/fork.o
+ .comment       0x000000a8       0x2a kernel/interrupt.o
+ .comment       0x000000d2       0x2a kernel/sched.o
+ .comment       0x000000fc       0x2a kernel/timer.o
+ .comment       0x00000126       0x2a kernel/trap.o
+ .comment       0x00000150       0x2a kernel/uart.o
+ .comment       0x0000017a       0x2a kernel/mktime.o
+ .comment       0x000001a4       0x2a kernel/panic.o
+ .comment       0x000001ce       0x2a kernel/sys.o
+ .comment       0x000001f8       0x2a mm/memory.o
+ .comment       0x00000222       0x2a mm/swap.o
+ .comment       0x0000024c       0x2a lib/ctype.o
+ .comment       0x00000276       0x2a lib/printf.o
+ .comment       0x000002a0       0x2a lib/string.o
+ .comment       0x000002ca       0x2a lib/vsprintf.o
+
+.note.GNU-stack
+                0x00000000        0x0
+ .note.GNU-stack
+                0x00000000        0x0 boot/movi.o
+ .note.GNU-stack
+                0x00000000        0x0 boot/nand_cp.o
+ .note.GNU-stack
+                0x00000000        0x0 init/main.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/fork.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/interrupt.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/sched.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/timer.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/trap.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/uart.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/mktime.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/panic.o
+ .note.GNU-stack
+                0x00000000        0x0 kernel/sys.o
+ .note.GNU-stack
+                0x00000000        0x0 mm/memory.o
+ .note.GNU-stack
+                0x00000000        0x0 mm/swap.o
+ .note.GNU-stack
+                0x00000000        0x0 lib/ctype.o
+ .note.GNU-stack
+                0x00000000        0x0 lib/printf.o
+ .note.GNU-stack
+                0x00000000        0x0 lib/string.o
+ .note.GNU-stack
+                0x00000000        0x0 lib/vsprintf.o

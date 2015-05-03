@@ -53,15 +53,14 @@ typedef char *va_list;
 	n = __res;						\
 	__rem;							\
 })
+
+
 unsigned long simple_strtoul(const char *cp,char **endp,unsigned int base);
 long simple_strtol(const char *cp,char **endp,unsigned int base);
 unsigned long long simple_strtoull(const char *cp,char **endp,unsigned int base);
 long long simple_strtoll(const char *cp,char **endp,unsigned int base);
 //static int  skip_atoi(const char **s);
 //char * number(char * buf, char * end, long long num, int base, int size, int precision, int type);
-int vsnprintf(char *buf, size_t size, const char *fmt, va_list args);
-int snprintf(char * buf, size_t size, const char *fmt, ...);
 int vsprintf(char *buf, const char *fmt, va_list args);
-int sprintf(char * buf, const char *fmt, ...);
 int vsscanf(const char * buf, const char * fmt, va_list args);
 int sscanf(const char * buf, const char * fmt, ...);
